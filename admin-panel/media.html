@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Media Manager — Portfolio Admin</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/admin.css" />
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-icon">⚙️</div>
+        <div class="sidebar-logo-text"><span class="logo-title">Portfolio</span><span class="logo-sub">Admin Panel</span></div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-group-label">OVERVIEW</div>
+      <a href="dashboard.html" class="sidebar-link"><span class="sl-icon">📊</span> Dashboard</a>
+      <div class="nav-group-label">CONTENT</div>
+      <a href="profile.html"  class="sidebar-link"><span class="sl-icon">👤</span> Profile & About</a>
+      <a href="education.html" class="sidebar-link"><span class="sl-icon">🎓</span> Education</a>
+      <a href="skills.html"   class="sidebar-link"><span class="sl-icon">🧠</span> Skills</a>
+      <a href="projects.html" class="sidebar-link"><span class="sl-icon">💼</span> Projects</a>
+      <a href="certifications.html" class="sidebar-link"><span class="sl-icon">🏅</span> Certifications</a>
+      <a href="resume.html"   class="sidebar-link"><span class="sl-icon">📄</span> Resume</a>
+      <div class="nav-group-label">COMMUNICATION</div>
+      <a href="messages.html" class="sidebar-link"><span class="sl-icon">💬</span> Messages</a>
+      <a href="social.html"   class="sidebar-link"><span class="sl-icon">🔗</span> Social Links</a>
+      <div class="nav-group-label">MEDIA</div>
+      <a href="media.html"    class="sidebar-link active"><span class="sl-icon">🖼️</span> Media Manager</a>
+      <a href="settings.html" class="sidebar-link"><span class="sl-icon">⚙️</span> Settings</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="admin-user"><div class="admin-avatar" id="adminAvatar">A</div><div class="admin-info"><span class="admin-name" id="adminName">Admin</span><span class="admin-role">Administrator</span></div></div>
+      <button class="logout-btn" id="logoutBtn" title="Logout"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
+    </div>
+  </aside>
+
+  <div class="main-wrapper">
+    <header class="topbar">
+      <button class="sidebar-toggle" id="sidebarToggle"><span></span><span></span><span></span></button>
+      <div class="topbar-title"><h1>Media Manager</h1></div>
+      <div class="topbar-right">
+        <a href="http://localhost:3000" target="_blank" class="topbar-btn view-site">↗ View Site</a>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <div class="page-header">
+        <div>
+          <div class="page-header-title">Asset Library</div>
+          <div class="page-header-sub">Upload, view, and manage photos, certificate images, and documents</div>
+        </div>
+        <div style="display:flex;gap:10px">
+          <label class="admin-btn admin-btn-primary" style="display:inline-block;cursor:pointer">
+            📤 Upload File
+            <input type="file" id="mediaUploadInput" accept="image/*,application/pdf" style="display:none" onchange="AdminApp.uploadMedia(this)" />
+          </label>
+        </div>
+      </div>
+
+      <div class="admin-section">
+        <div class="admin-section-header">
+          <div class="admin-section-title">Uploaded Files</div>
+        </div>
+        <div class="admin-section-body">
+          <div id="mediaGallery" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));gap:16px">
+            <div class="loading-state">Loading media gallery...</div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toastContainer" class="toast-container"></div>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/admin.js"></script>
+  <script>
+    if (!localStorage.getItem('admin_token')) window.location.href = 'index.html';
+    const email = localStorage.getItem('admin_email') || '';
+    document.getElementById('adminName').textContent = email.split('@')[0] || 'Admin';
+    document.getElementById('adminAvatar').textContent = (email[0] || 'A').toUpperCase();
+    document.getElementById('logoutBtn').addEventListener('click', () => { localStorage.clear(); window.location.href='index.html'; });
+    AdminApp.loadMedia();
+  </script>
+</body>
+</html>

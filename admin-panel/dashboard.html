@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Portfolio Admin</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/admin.css" />
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-icon">⚙️</div>
+        <div class="sidebar-logo-text">
+          <span class="logo-title">Portfolio</span>
+          <span class="logo-sub">Admin Panel</span>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-group-label">OVERVIEW</div>
+      <a href="dashboard.html"       class="sidebar-link active" data-page="dashboard">
+        <span class="sl-icon">📊</span> Dashboard
+      </a>
+
+      <div class="nav-group-label">CONTENT</div>
+      <a href="profile.html"         class="sidebar-link" data-page="profile">
+        <span class="sl-icon">👤</span> Profile & About
+      </a>
+      <a href="education.html"       class="sidebar-link" data-page="education">
+        <span class="sl-icon">🎓</span> Education
+      </a>
+      <a href="skills.html"          class="sidebar-link" data-page="skills">
+        <span class="sl-icon">🧠</span> Skills
+      </a>
+      <a href="projects.html"        class="sidebar-link" data-page="projects">
+        <span class="sl-icon">💼</span> Projects
+      </a>
+      <a href="certifications.html"  class="sidebar-link" data-page="certifications">
+        <span class="sl-icon">🏅</span> Certifications
+      </a>
+      <a href="resume.html"          class="sidebar-link" data-page="resume">
+        <span class="sl-icon">📄</span> Resume
+      </a>
+
+      <div class="nav-group-label">COMMUNICATION</div>
+      <a href="messages.html"        class="sidebar-link" data-page="messages">
+        <span class="sl-icon">💬</span> Messages
+        <span class="badge" id="unreadBadge" style="display:none">0</span>
+      </a>
+      <a href="social.html"          class="sidebar-link" data-page="social">
+        <span class="sl-icon">🔗</span> Social Links
+      </a>
+
+      <div class="nav-group-label">MEDIA</div>
+      <a href="media.html"           class="sidebar-link" data-page="media">
+        <span class="sl-icon">🖼️</span> Media Manager
+      </a>
+      <a href="settings.html"        class="sidebar-link" data-page="settings">
+        <span class="sl-icon">⚙️</span> Settings
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="admin-user">
+        <div class="admin-avatar">A</div>
+        <div class="admin-info">
+          <span class="admin-name" id="adminName">Admin</span>
+          <span class="admin-role">Administrator</span>
+        </div>
+      </div>
+      <button class="logout-btn" id="logoutBtn" title="Logout">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-wrapper">
+    <!-- Top Bar -->
+    <header class="topbar">
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="topbar-title">
+        <h1 id="pageTitle">Dashboard</h1>
+      </div>
+      <div class="topbar-right">
+        <button class="topbar-btn" id="notifBtn" title="Notifications">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          <span class="notif-dot" id="notifDot" style="display:none"></span>
+        </button>
+        <a href="http://localhost:3000" target="_blank" class="topbar-btn view-site" title="View Portfolio">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          View Site
+        </a>
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <main class="page-content" id="pageContent">
+
+      <!-- Stats Row -->
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(99,102,241,0.12);color:#6366f1">💼</div>
+          <div class="stat-body">
+            <div class="stat-value" id="statProjects">—</div>
+            <div class="stat-label">Projects</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(16,185,129,0.12);color:#10b981">🧠</div>
+          <div class="stat-body">
+            <div class="stat-value" id="statSkills">—</div>
+            <div class="stat-label">Skills</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(245,158,11,0.12);color:#f59e0b">🏅</div>
+          <div class="stat-body">
+            <div class="stat-value" id="statCerts">—</div>
+            <div class="stat-label">Certifications</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(239,68,68,0.12);color:#ef4444">💬</div>
+          <div class="stat-body">
+            <div class="stat-value" id="statMessages">—</div>
+            <div class="stat-label">Messages</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Main Grid -->
+      <div class="dashboard-grid">
+
+        <!-- Quick Actions -->
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h2 class="dash-card-title">Quick Actions</h2>
+          </div>
+          <div class="quick-actions">
+            <a href="projects.html" class="qa-btn">
+              <span>➕</span> Add Project
+            </a>
+            <a href="certifications.html" class="qa-btn">
+              <span>🏅</span> Add Certificate
+            </a>
+            <a href="skills.html" class="qa-btn">
+              <span>🧠</span> Manage Skills
+            </a>
+            <a href="messages.html" class="qa-btn">
+              <span>💬</span> View Messages
+            </a>
+            <a href="media.html" class="qa-btn">
+              <span>📁</span> Upload Media
+            </a>
+            <a href="resume.html" class="qa-btn">
+              <span>📄</span> Update Resume
+            </a>
+          </div>
+        </div>
+
+        <!-- Recent Messages -->
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h2 class="dash-card-title">Recent Messages</h2>
+            <a href="messages.html" class="dash-card-link">View All →</a>
+          </div>
+          <div id="recentMessages">
+            <div class="loading-state">Loading messages...</div>
+          </div>
+        </div>
+
+        <!-- Profile Completion -->
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h2 class="dash-card-title">Profile Completion</h2>
+          </div>
+          <div class="profile-completion">
+            <div class="pc-ring-wrapper">
+              <svg class="pc-ring" width="120" height="120" viewBox="0 0 36 36">
+                <path class="pc-ring-bg"  d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="2.8"/>
+                <path class="pc-ring-fill" id="pcRingFill" d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="#6366f1" stroke-width="2.8" stroke-dasharray="75, 100" stroke-linecap="round"/>
+              </svg>
+              <div class="pc-pct" id="pcPercent">75%</div>
+            </div>
+            <div class="pc-items" id="pcItems">
+              <div class="pc-item done"><span>✓</span> Profile Info</div>
+              <div class="pc-item done"><span>✓</span> Education</div>
+              <div class="pc-item done"><span>✓</span> Skills</div>
+              <div class="pc-item done"><span>✓</span> Projects</div>
+              <div class="pc-item pending"><span>○</span> Resume PDF</div>
+              <div class="pc-item done"><span>✓</span> Certifications</div>
+              <div class="pc-item pending"><span>○</span> Profile Photo</div>
+              <div class="pc-item done"><span>✓</span> Social Links</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- System Info -->
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h2 class="dash-card-title">System Status</h2>
+          </div>
+          <div class="system-status">
+            <div class="ss-row">
+              <span class="ss-label">Backend API</span>
+              <span class="ss-value" id="apiStatus">
+                <span class="status-dot" id="apiDot"></span>
+                <span id="apiStatusText">Checking...</span>
+              </span>
+            </div>
+            <div class="ss-row">
+              <span class="ss-label">Database</span>
+              <span class="ss-value">
+                <span class="status-dot green"></span>
+                <span>SQLite</span>
+              </span>
+            </div>
+            <div class="ss-row">
+              <span class="ss-label">Public Portfolio</span>
+              <span class="ss-value">
+                <a href="http://localhost:3000" target="_blank" style="color:var(--accent)">Open ↗</a>
+              </span>
+            </div>
+            <div class="ss-row">
+              <span class="ss-label">Admin Version</span>
+              <span class="ss-value">v1.0.0</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/admin.js"></script>
+  <script>
+    // Auth guard
+    if (!localStorage.getItem('admin_token')) {
+      window.location.href = 'index.html';
+    }
+
+    // Set admin name
+    const email = localStorage.getItem('admin_email') || 'admin@portfolio.com';
+    document.getElementById('adminName').textContent = email.split('@')[0];
+    document.getElementById('adminAvatar') && (document.getElementById('adminAvatar').textContent = email[0].toUpperCase());
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.removeItem('admin_token');
+      localStorage.removeItem('admin_email');
+      window.location.href = 'index.html';
+    });
+
+    // Load dashboard data
+    AdminApp.loadDashboard();
+  </script>
+</body>
+</html>
