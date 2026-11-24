@@ -971,6 +971,92 @@ const PORTFOLIO_DATA = {
       }
     } catch (_) {}
 
+    // 4. Sync Dynamic Projects
+    try {
+      const projRes = await fetch(`${API_BASE}/api/projects`);
+      if (projRes.ok) {
+        const projs = await projRes.json();
+        if (projs && projs.length > 0) {
+          const showcase = document.getElementById('projectsShowcase');
+          if (showcase) {
+            showcase.innerHTML = projs.map((p, idx) => {
+              const isReverse = idx % 2 === 1 ? ' reverse' : '';
+              const num = String(idx + 1).padStart(2, '0');
+              const techs = Array.isArray(p.technologies) ? p.technologies : [];
+              const techBadges = techs.map(t => `<span class="tech-tag">${t}</span>`).join('\n                ');
+              const liveBtn = p.live_url ? `
+                <a href="${p.live_url}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  <span>Launch Live Demo</span>
+                </a>` : '';
+              const gitBtn = p.github_url ? `
+                <a href="${p.github_url}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.475 2 2 6.475 2 12a9.994 9.994 0 006.838 9.488c.5.087.687-.213.687-.476 0-.237-.013-1.024-.013-1.862-2.512.463-3.162-.612-3.362-1.175-.113-.288-.6-1.175-1.025-1.413-.35-.187-.85-.65-.013-.662.788-.013 1.35.725 1.538 1.025.9 1.512 2.338 1.087 2.912.825.088-.65.35-1.087.638-1.337-2.225-.25-4.55-1.113-4.55-4.938 0-1.088.387-1.987 1.025-2.688-.1-.25-.45-1.275.1-2.65 0 0 .837-.262 2.75 1.026a9.28 9.28 0 012.5-.338c.85 0 1.7.112 2.5.337 1.912-1.3 2.75-1.025 2.75-1.025.55 1.375.2 2.4.1 2.65.637.7 1.025 1.587 1.025 2.687 0 3.838-2.337 4.688-4.562 4.938.362.312.675.912.675 1.85 0 1.337-.013 2.412-.013 2.75 0 .262.188.574.688.474A10.016 10.016 0 0022 12c0-5.525-4.475-10-10-10z"/></svg>
+                  <span>GitHub Repository</span>
+                </a>` : '';
+
+              return `
+              <article class="project-case" id="project${p.id}">
+                <div class="project-case-inner${isReverse}">
+                  <div class="project-meta-col">
+                    <div class="project-top-row">
+                      <span class="project-number">${num}</span>
+                      <span class="project-category-tag">${p.category || 'AI / Machine Learning'}</span>
+                      <span class="project-live-indicator">● Deployed on Render</span>
+                    </div>
+
+                    <h3 class="project-title">${p.title || p.name || 'Untitled Project'}</h3>
+
+                    <p class="project-brief">${p.description || p.brief || ''}</p>
+
+                    <div class="project-tech-stack">
+                      ${techBadges}
+                    </div>
+
+                    <div class="project-actions">
+                      ${liveBtn}
+                      ${gitBtn}
+                    </div>
+                  </div>
+
+                  <div class="project-visual-col">
+                    <div class="project-pipeline-vis">
+                      <div class="pipeline-label">Architecture &amp; Pipeline Execution</div>
+                      <div class="pp-steps">
+                        <div class="pp-step active-step">
+                          <div class="pp-step-icon">🎯</div>
+                          <div class="pp-step-text">
+                            <strong>Problem Statement</strong>
+                            <span>${p.problem || 'Complex problem requiring targeted AI automation and scalable data engineering.'}</span>
+                          </div>
+                        </div>
+                        <div class="pp-arrow">↓</div>
+                        <div class="pp-step">
+                          <div class="pp-step-icon">⚡</div>
+                          <div class="pp-step-text">
+                            <strong>System Architecture</strong>
+                            <span>Engineered with ${techs.slice(0, 3).join(', ') || 'modern AI and backend frameworks'}.</span>
+                          </div>
+                        </div>
+                        <div class="pp-arrow">↓</div>
+                        <div class="pp-step result-step">
+                          <div class="pp-step-icon">✅</div>
+                          <div class="pp-step-text">
+                            <strong>Production Outcome</strong>
+                            <span>${p.result || 'Deployed and verified with high reliability, performance, and responsive UI.'}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>`;
+            }).join('\n');
+          }
+        }
+      }
+    } catch (_) {}
+
   } catch (_) {
     // Offline resilient fallback - static HTML preserved intact
   }
